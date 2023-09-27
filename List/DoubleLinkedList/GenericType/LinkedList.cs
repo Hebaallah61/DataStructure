@@ -10,6 +10,7 @@ namespace List.DoubleLinkedList.GenericType
     {
         public LinkedListNode<T> head = null;
         public LinkedListNode<T> tail = null;
+        public int length { get; private set; } = 0;
 
         public LinkedListIterator<T> Begin()
         {
@@ -50,6 +51,7 @@ namespace List.DoubleLinkedList.GenericType
             {
                 newNode.Next.Back = newNode;
             }
+            length++;
         }
 
         public void InsertLast(T _data)
@@ -66,6 +68,7 @@ namespace List.DoubleLinkedList.GenericType
                 tail.Next = newNode;
                 tail = newNode;
             }
+            length++;
         }
 
         public void InsertBefore(LinkedListNode<T> node, T _data)
@@ -81,6 +84,7 @@ namespace List.DoubleLinkedList.GenericType
                 node.Back.Next = newNode;
             }
             node.Back= newNode;
+            length++;
         }
 
         public void DeleteNode(LinkedListNode<T> node)
@@ -105,7 +109,28 @@ namespace List.DoubleLinkedList.GenericType
                 node.Back.Next = node.Next;
                 node.Next.Back = node.Back;
             }
+            length--;
         }
 
+        public static LinkedList<T> CopyList(LinkedList<T> list)
+        {
+            LinkedList<T> copy = new LinkedList<T>();
+            LinkedListIterator<T> iterator = new LinkedListIterator<T>(list.head); 
+
+            while (iterator.Current != null)
+            {
+                copy.InsertLast(iterator.Data());
+                iterator.Next();
+            }
+            return copy;
+        }
+
+    }
+    public static class LinkedListExtensions
+    {
+        public static LinkedList<T> CopyList<T>(this LinkedList<T> list)
+        {
+            return LinkedList<T>.CopyList(list);
+        }
     }
 }

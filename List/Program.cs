@@ -1,4 +1,6 @@
 ﻿
+using List.DoubleLinkedList.GenericType;
+
 namespace List
 {
     internal class Program
@@ -52,15 +54,25 @@ namespace List
             list.InsertLast("khaled");
             list.InsertLast("Ahmed");
             list.PrintList();
+            Console.WriteLine(list.length);
 
             list.InsertAfter(list.Find("heba"), "Asmaa");
             list.PrintList();
+            Console.WriteLine(list.length);
 
             list.DeleteNode(list.Find("Ahmed"));
             list.PrintList();
+            Console.WriteLine(list.length);
 
             list.InsertBefore(list.Find("nour"), "Sahar");
             list.PrintList();
+            Console.WriteLine(list.length);
+            Console.WriteLine(list.GetHashCode());
+
+            DoubleLinkedList.GenericType.LinkedList<string> copiedList = DoubleLinkedList.GenericType.LinkedList<string>.CopyList(list);
+            copiedList.PrintList();
+            Console.WriteLine(copiedList.GetHashCode());
+
             #endregion
 
         }
