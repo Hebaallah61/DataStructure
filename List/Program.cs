@@ -47,7 +47,8 @@ namespace List
             #endregion
 
             #region Generic Double Linked List Manual Test
-            DoubleLinkedList.GenericType.LinkedList<string> list = new();
+            DoubleLinkedList.GenericType.LinkedList<string> list = new(true);
+            list.InsertLast("heba");
             list.InsertLast("heba");
             list.InsertLast("ali");
             list.InsertLast("nour");
@@ -57,6 +58,7 @@ namespace List
             Console.WriteLine(list.length);
 
             list.InsertAfter(list.Find("heba"), "Asmaa");
+            list.InsertAfter(list.Find("Asmaa"), "heba");
             list.PrintList();
             Console.WriteLine(list.length);
 

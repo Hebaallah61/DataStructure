@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace List.DoubleLinkedList.GenericType
 {
@@ -11,6 +12,15 @@ namespace List.DoubleLinkedList.GenericType
         public LinkedListNode<T> head = null;
         public LinkedListNode<T> tail = null;
         public int length { get; private set; } = 0;
+        public bool unique { get; set; }
+        public LinkedList()
+        {
+            
+        }
+        public LinkedList(bool _unique=false)
+        {
+            unique = _unique;
+        }
 
         public LinkedListIterator<T> Begin()
         {
@@ -39,6 +49,7 @@ namespace List.DoubleLinkedList.GenericType
 
         public void InsertAfter(LinkedListNode<T> node, T _data)
         {
+            if (!CanInsert(_data)) return;
             LinkedListNode<T> newNode = new LinkedListNode<T>(_data);
             newNode.Next = node.Next;
             newNode.Back = node;
@@ -54,8 +65,19 @@ namespace List.DoubleLinkedList.GenericType
             length++;
         }
 
+        public bool CanInsert(T _data)
+        {
+            if (unique && IsExist(_data))
+            {
+                Console.WriteLine($"Node ={_data} Is Already Exist");
+                return false;
+            }
+            return true;
+        }
+
         public void InsertLast(T _data)
         {
+            if (!CanInsert(_data)) return;
             LinkedListNode<T> newNode = new LinkedListNode<T>(_data);
             if (tail == null)
             {
@@ -73,6 +95,7 @@ namespace List.DoubleLinkedList.GenericType
 
         public void InsertBefore(LinkedListNode<T> node, T _data)
         {
+            if (!CanInsert(_data)) return;
             LinkedListNode<T> newNode = new LinkedListNode<T>(_data);
             newNode.Next = node;
             if (node == head)
@@ -123,6 +146,16 @@ namespace List.DoubleLinkedList.GenericType
                 iterator.Next();
             }
             return copy;
+        }
+
+        public bool IsExist(T data)
+        {
+            LinkedListNode<T> node = this.Find(data);
+            if(node!=null)
+            {
+                return true;
+            }
+            return false;
         }
 
     }
