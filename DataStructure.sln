@@ -5,11 +5,11 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Array", "Array", "{405777AD-1AC0-436C-86F6-20CFF2F2A92C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArrayDS", "ArrayDS\ArrayDS.csproj", "{97283EBF-AEB6-43AA-9668-A1D247A21384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArrayDS", "ArrayDS\ArrayDS.csproj", "{97283EBF-AEB6-43AA-9668-A1D247A21384}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "List", "List", "{3FC560B5-189E-4492-97A2-09BA502052FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "List", "List\List.csproj", "{2B7CB13F-E494-4990-B644-CA21399D02F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "List", "List\List.csproj", "{2B7CB13F-E494-4990-B644-CA21399D02F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
