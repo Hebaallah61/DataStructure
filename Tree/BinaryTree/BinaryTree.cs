@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tree.BinaryTree
 {
@@ -41,6 +43,100 @@ namespace Tree.BinaryTree
                 else queue.enqueue (Current.Right);
             }
         }
+
+        public int Height()
+        {
+            return InternalHeight(Root);
+        }
+
+        public int InternalHeight(TreeNode node)
+        {
+            if (node == null) return 0;
+            return 1 + Math.Max(InternalHeight(node.Left), InternalHeight(node.Right));
+        }
+
+        public void PreOrder()
+        {
+            InternalPreOrder(Root);
+            Console.WriteLine();
+        }
+
+        public void InternalPreOrder(TreeNode node)
+        {
+            if(node == null) return;
+            Console.Write(node.Data+" -> ");
+            InternalPreOrder(node.Left);
+            InternalPreOrder(node.Right);
+        }
+
+        public void InOrder()
+        {
+            InternalInOrder(Root);
+            Console.WriteLine();
+        }
+
+        public void InternalInOrder(TreeNode node)
+        {
+            if (node == null) return;
+            InternalInOrder(node.Left);
+            Console.Write(node.Data + " -> ");
+            InternalInOrder(node.Right);
+        }
+
+        public void PostOrder()
+        {
+            InternalPostOrder(Root);
+            Console.WriteLine();
+        }
+
+        public void InternalPostOrder(TreeNode node)
+        {
+            if (node == null) return;
+            InternalPostOrder(node.Left);
+            InternalPostOrder(node.Right);
+            Console.Write(node.Data + " -> ");
+        }
+
+        public TreeNode Find(Tdata data)
+        {
+            bool found = false;
+            TreeNode result = InternalFind(Root, data, ref found);
+            if (!found)
+            {
+                Console.WriteLine("Node Does not Exist");
+            }
+            return result;
+        }
+
+        private TreeNode InternalFind(TreeNode node, Tdata data, ref bool found)
+        {
+            if (node == null || found)
+            {
+                return null;
+            }
+
+            if (node.Data.CompareTo(data) == 0)
+            {
+                Console.WriteLine($"Node {node.Data} Exists");
+                found = true;
+                return node;
+            }
+
+            TreeNode leftResult = InternalFind(node.Left, data, ref found);
+            if (leftResult != null)
+            {
+                return leftResult;
+            }
+
+            TreeNode rightResult = InternalFind(node.Right, data, ref found);
+            if (rightResult != null)
+            {
+                return rightResult;
+            }
+
+            return null;
+        }      
+
         public class TreeNode
         {
             public Tdata Data;
@@ -62,7 +158,7 @@ namespace Tree.BinaryTree
             public int EndPos { get { return StartPos + Size; } set { StartPos = value - Size; } }
             public NodeInfo Parent, Left, Right;
         }
-        public void Print(int topMargin = 2, int LeftMargin = 2)
+        public void Print(int topMargin = 2, int leftMargin = 2)
         {
             if (this.Root == null) return;
             int rootTop = Console.CursorTop + topMargin;
@@ -78,7 +174,7 @@ namespace Tree.BinaryTree
                 }
                 else
                 {
-                    item.StartPos = LeftMargin;
+                    item.StartPos = leftMargin;
                     last.Add(item);
                 }
                 if (level > 0)
@@ -116,6 +212,7 @@ namespace Tree.BinaryTree
             }
             Console.SetCursorPosition(0, rootTop + 2 * last.Count - 1);
         }
+
         private void Print(NodeInfo item, int top)
         {
             SwapColors();
@@ -134,11 +231,11 @@ namespace Tree.BinaryTree
             Print(end, top, endPos);
         }
 
-        private void Print(string s, int top, int Left, int Right = -1)
+        private void Print(string s, int top, int left, int right = -1)
         {
-            Console.SetCursorPosition(Left, top);
-            if (Right < 0) Right = Left + s.Length;
-            while (Console.CursorLeft < Right) Console.Write(s);
+            Console.SetCursorPosition(left, top);
+            if (right < 0) right = left + s.Length;
+            while (Console.CursorLeft < right) Console.Write(s);
         }
 
         private void SwapColors()
