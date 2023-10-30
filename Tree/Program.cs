@@ -1,0 +1,22 @@
+﻿using Tree.BinaryTree;
+
+namespace Tree
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            BinaryTree.BinaryTree<char> tree = new();
+            tree.Insert('A');
+            tree.Insert('B');
+            tree.Insert('C');
+            tree.Insert('D');
+            tree.Insert('E');
+            tree.Insert('F');
+            tree.Insert('G');
+            tree.Insert('H');
+            tree.Insert('I');
+            tree.Print();
+        }
+    }
+}
