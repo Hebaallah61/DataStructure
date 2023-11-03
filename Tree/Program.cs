@@ -16,17 +16,22 @@ namespace Tree
             tree.Insert('G');
             tree.Insert('H');
             tree.Insert('I');
+
             tree.Print();
 
             Console.WriteLine("Height: " + tree.Height());
             tree.PreOrder();
             tree.InOrder();
             tree.PostOrder();
-         
+
             tree.Find('k');
             tree.Find('D');
 
-           
+            tree.FindBottomRight();
+            tree.Delete('D');
+            tree.Print();
+
+            tree.PostOrder();
 
         }
     }

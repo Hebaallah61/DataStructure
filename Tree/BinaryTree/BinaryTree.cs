@@ -10,7 +10,7 @@ namespace Tree.BinaryTree
 {
     public class BinaryTree<Tdata> where Tdata : IComparable<Tdata>
     {
-        TreeNode Root;
+        public TreeNode Root;
 
         public void Insert(Tdata data)
         {
@@ -135,7 +135,129 @@ namespace Tree.BinaryTree
             }
 
             return null;
-        }      
+        }
+
+        public void FindBottomRight()
+        {
+            TreeNode bottomRight = InternalFindBottomRight(Root, Height(), 0);
+            if (bottomRight != null)
+            {
+                Console.WriteLine("The bottom right node is: " + bottomRight.Data);
+            }
+            else
+            {
+                Console.WriteLine("No bottom right node found.");
+            }
+        }
+
+        public TreeNode InternalFindBottomRight(TreeNode node, int targetDepth, int currentDepth)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            if (currentDepth == targetDepth - 1 && (node.Left == null && node.Right == null))
+            {
+                return node;
+            }
+
+            TreeNode rightResult = InternalFindBottomRight(node.Right, targetDepth, currentDepth + 1);
+            if (rightResult != null)
+            {
+                return rightResult;
+            }
+
+            TreeNode leftResult = InternalFindBottomRight(node.Left, targetDepth, currentDepth + 1);
+            if (leftResult != null)
+            {
+                return leftResult;
+            }
+
+            return null;
+        }
+
+        public void Delete(Tdata data)
+        {
+            if (Root == null)
+            {
+                Console.WriteLine("Tree is empty. Cannot delete.");
+                return;
+            }
+
+            TreeNode bottomRight = InternalFindBottomRight(Root, Height(), 0);
+            TreeNode parentOfBottomRight = FindParent(bottomRight.Data);
+            TreeNode parent = null;
+            TreeNode nodeToDelete = FindNodeToDelete(Root, data, ref parent);
+
+            if (nodeToDelete == null)
+            {
+                Console.WriteLine($"Node {data} not found. Cannot delete.");
+                return;
+            }
+
+            if (parentOfBottomRight == null)
+            {
+                Root = null;
+            }
+            else if (parentOfBottomRight.Left == bottomRight)
+            {
+                parentOfBottomRight.Left = null;
+            }
+            else if (parentOfBottomRight.Right == bottomRight)
+            {
+                parentOfBottomRight.Right = null;
+            }
+
+            nodeToDelete.Data = bottomRight.Data;
+        }
+
+        private TreeNode FindNodeToDelete(TreeNode node, Tdata data, ref TreeNode parent)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            if (node.Data.CompareTo(data) == 0)
+            {
+                return node;
+            }
+
+            parent = node;
+
+            TreeNode leftResult = FindNodeToDelete(node.Left, data, ref parent);
+            if (leftResult != null)
+            {
+                return leftResult;
+            }
+
+            return FindNodeToDelete(node.Right, data, ref parent);
+        }
+
+        public TreeNode FindParent(Tdata data)
+        {
+            TreeNode parent = null;
+            FindParentRecursively(Root, data, ref parent, null);
+            return parent;
+        }
+
+        private void FindParentRecursively(TreeNode node, Tdata data, ref TreeNode parent, TreeNode grandparent)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            if (node.Data.CompareTo(data) == 0)
+            {
+                parent = grandparent;
+                return;
+            }
+
+            FindParentRecursively(node.Left, data, ref parent, node);
+            FindParentRecursively(node.Right, data, ref parent, node);
+        }
 
         public class TreeNode
         {
