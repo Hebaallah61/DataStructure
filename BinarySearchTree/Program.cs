@@ -33,6 +33,9 @@ namespace BinarySearchTree
             tree.BSInsert(6);
             tree.BSInsert(5);
             tree.BSInsert(7);
+            tree.BSInsert(7,false);
+            tree.BSDuplicateCountInsert(8);
+            tree.BSDuplicateCountInsert(8);
             tree.Print();
 
            Console.WriteLine(tree.IsExsit(6));
@@ -46,18 +49,18 @@ namespace BinarySearchTree
             tree.BsDelete(1);
             tree.Print();
 
-            BinarySearchTree.BinarySearchTree<int> T = new();
+            //BinarySearchTree.BinarySearchTree<int> T = new();
 
-            T.BSInsert(1);
-            T.BSInsert(2);
-            T.BSInsert(3);
-            T.BSInsert(4);
-            T.BSInsert(5);
-            T.BSInsert(6);
-            T.Print();
+            //T.BSInsert(1);
+            //T.BSInsert(2);
+            //T.BSInsert(3);
+            //T.BSInsert(4);
+            //T.BSInsert(5);
+            //T.BSInsert(6);
+            //T.Print();
 
-            T.Balance();
-            T.Print();
+            //T.Balance();
+            //T.Print();
         }
     }
 }

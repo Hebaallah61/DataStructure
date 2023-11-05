@@ -37,10 +37,36 @@ namespace BinarySearchTree.BinarySearchTree
             return newNode;
         }
 
-        public void BSInsert(Tdata data)
+        public void BSDuplicateCountInsert(Tdata data)
+        {
+            TreeNode node= BSFind(data);
+            if (node!=null)
+            {
+                node.Count++;
+                Console.WriteLine($"Count of {data} in the BST is: {node.Count}");
+                return;
+            }
+            SimpleInsert(data);
+        }
+
+        public void BSInsert(Tdata data, bool IsDuplicate=true)
+        {
+            if (IsDuplicate == false)
+            {
+                bool exist = IsExsit(data);
+                if (exist)
+                {
+                    Console.WriteLine($"Already {data} Exists");
+                    return;
+                }
+            }
+            SimpleInsert(data);
+        }
+
+        public void SimpleInsert(Tdata data)
         {
             TreeNode newNode = new(data);
-            if(Root == null)
+            if (Root == null)
             {
                 Root = newNode;
                 return;
@@ -48,7 +74,7 @@ namespace BinarySearchTree.BinarySearchTree
             TreeNode CurrentNode = Root;
             while (CurrentNode != null)
             {
-                if (data.CompareTo(CurrentNode.Data)<0)
+                if (data.CompareTo(CurrentNode.Data) < 0)
                 {
                     if (CurrentNode.Left == null)
                     {
@@ -246,6 +272,7 @@ namespace BinarySearchTree.BinarySearchTree
         public class TreeNode
         {
             public Tdata Data;
+            public int Count=1;
             public TreeNode Left;
             public TreeNode Right;
             public TreeNode(Tdata data) 
